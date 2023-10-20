@@ -21,14 +21,15 @@ type NavBarProps = ContainerProps;
 
 const Navbar: React.FC<NavBarProps> = () => {
   return (
-    <Container maxW="container.lg" pos="sticky" zIndex={1}>
+    <Container maxW="container.xl" px="12" pos="sticky" zIndex={1}>
       <Flex
         as="nav"
-        maxW="container.lg"
+        maxW="container.xl"
         alignItems="center"
         alignSelf="center"
         gap={12}
         height={100}
+        pointerEvents="all"
       >
         <Logo />
         <Stack

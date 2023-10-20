@@ -11,10 +11,10 @@ import {
   SheetProvider,
   useCurrentSheet,
 } from "@theatre/r3f";
-import { Suspense } from "react";
-
 import extension from "@theatre/r3f/dist/extension";
 import studio from "@theatre/studio";
+import { AnimatePresence } from "framer-motion";
+import { Suspense } from "react";
 
 import {
   Fourth,
@@ -45,26 +45,28 @@ function Theatre() {
 
   return (
     <div style={{ height: "100vh", width: "100vw" }}>
-      {page === 1 && (
-        <ScrollPage bg="#770056ff">
-          <Header />
-        </ScrollPage>
-      )}
-      {page === 2 && (
-        <ScrollPage bg="#77aa56ff">
-          <Second />
-        </ScrollPage>
-      )}
-      {page === 3 && (
-        <ScrollPage bg="#074056ff">
-          <Third />
-        </ScrollPage>
-      )}
-      {page >= 4 && (
-        <ScrollPage bg="#e70a56ff">
-          <Fourth />
-        </ScrollPage>
-      )}
+      <AnimatePresence initial mode="wait">
+        {page === 1 && (
+          <ScrollPage bg="#770056ff">
+            <Header />
+          </ScrollPage>
+        )}
+        {page === 2 && (
+          <ScrollPage bg="#77aa56ff">
+            <Second />
+          </ScrollPage>
+        )}
+        {page === 3 && (
+          <ScrollPage bg="#074056ff">
+            <Third />
+          </ScrollPage>
+        )}
+        {page >= 4 && (
+          <ScrollPage bg="#e70a56ff">
+            <Fourth />
+          </ScrollPage>
+        )}
+      </AnimatePresence>
       <Canvas gl={{ preserveDrawingBuffer: true }}>
         <ScrollControls
           pages={4}
@@ -112,7 +114,7 @@ const Scene = () => {
     }
   });
 
-  const bgColor = "#84a4f4";
+  const bgColor = "#FFFFFF";
   return (
     <>
       <Environment preset="sunset" />

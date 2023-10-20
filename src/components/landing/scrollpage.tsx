@@ -1,3 +1,4 @@
+import { Variants, motion } from "framer-motion";
 import React from "react";
 
 interface ScrollPageProps {
@@ -6,11 +7,20 @@ interface ScrollPageProps {
   title?: string;
 }
 
+const layoutVariants: Variants = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+  exit: { opacity: 0 },
+};
+
 function ScrollPage({ title, bg, children }: ScrollPageProps) {
   return (
-    <div
+    <motion.div
+      variants={layoutVariants}
+      initial="hidden"
+      animate="show"
+      exit="exit"
       style={{
-        // backgroundColor: bg,
         height: "100vh",
         width: "100vw",
         position: "absolute",
@@ -20,7 +30,7 @@ function ScrollPage({ title, bg, children }: ScrollPageProps) {
     >
       {title && <h1 style={{ color: bg }}>{title}</h1>}
       {children}
-    </div>
+    </motion.div>
   );
 }
 
