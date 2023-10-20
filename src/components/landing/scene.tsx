@@ -2,7 +2,7 @@ import { useAnimations, useGLTF } from "@react-three/drei";
 import { useEffect } from "react";
 
 function Scene() {
-  const { animations, scene } = useGLTF("./model/michelle-esquive.glb");
+  const { animations, scene } = useGLTF("./model/low_poly_flying_island.glb");
   const { actions } = useAnimations(animations, scene);
 
   useEffect(() => {

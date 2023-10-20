@@ -3,7 +3,7 @@ import React from "react";
 interface ScrollPageProps {
   children?: React.ReactNode;
   bg: string;
-  title: string;
+  title?: string;
 }
 
 function ScrollPage({ title, bg, children }: ScrollPageProps) {
@@ -16,12 +16,9 @@ function ScrollPage({ title, bg, children }: ScrollPageProps) {
         position: "absolute",
         zIndex: 1,
         pointerEvents: "none",
-        justifyContent: "center",
-        alignItems: "center",
-        display: "flex",
       }}
     >
-      <h1 style={{ color: bg }}>{title}</h1>
+      {title && <h1 style={{ color: bg }}>{title}</h1>}
       {children}
     </div>
   );

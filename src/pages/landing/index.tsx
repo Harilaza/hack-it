@@ -1,4 +1,3 @@
-import { Link } from "@chakra-ui/react";
 import {
   Environment,
   ScrollControls,
@@ -14,25 +13,32 @@ import {
 } from "@theatre/r3f";
 import { Suspense } from "react";
 
-/* import extension from "@theatre/r3f/dist/extension";
-import studio from "@theatre/studio"; */
+import extension from "@theatre/r3f/dist/extension";
+import studio from "@theatre/studio";
 
 import {
+  Fourth,
+  Header,
   Scene as LandingScene,
   Loader,
   ScrollPage,
+  Second,
   MySpotLight as SpotLight,
+  Third,
 } from "../../components/landing";
 import { useAppDispatch, useAppSelector } from "../../hooks/useRTK";
 import { setCurrentpage } from "../../rtk/features/currentPage";
-import demo from "./demo.json";
 
-const demoSheet = getProject("Demo Project", { state: demo }).sheet(
+// import demo from "./demo.json";
+
+/* const demoSheet = getProject("Demo Project", { state: demo }).sheet(
   "Demo Sheet"
-);
+); */
 
-/* studio.extend(extension);
-studio.initialize(); */
+const demoSheet = getProject("xx Project").sheet("xx Sheet");
+
+studio.extend(extension);
+studio.initialize();
 
 function Theatre() {
   const { page } = useAppSelector((state) => state.currentPage);
@@ -40,15 +46,25 @@ function Theatre() {
   return (
     <div style={{ height: "100vh", width: "100vw" }}>
       {page === 1 && (
-        <ScrollPage bg="#770056ff" title="Welcome Page 1">
-          <Link style={{ pointerEvents: "all" }} href="/">
-            home
-          </Link>
+        <ScrollPage bg="#770056ff">
+          <Header />
         </ScrollPage>
       )}
-      {page === 2 && <ScrollPage bg="#77aa56ff" title="Hello Page 2" />}
-      {page === 3 && <ScrollPage bg="#074056ff" title="Welcome Page 3" />}
-      {page === 4 && <ScrollPage bg="#e70a56ff" title="Hello Page 4" />}
+      {page === 2 && (
+        <ScrollPage bg="#77aa56ff">
+          <Second />
+        </ScrollPage>
+      )}
+      {page === 3 && (
+        <ScrollPage bg="#074056ff">
+          <Third />
+        </ScrollPage>
+      )}
+      {page >= 4 && (
+        <ScrollPage bg="#e70a56ff">
+          <Fourth />
+        </ScrollPage>
+      )}
       <Canvas gl={{ preserveDrawingBuffer: true }}>
         <ScrollControls
           pages={4}
@@ -102,6 +118,7 @@ const Scene = () => {
       <Environment preset="sunset" />
       <color attach="background" args={[bgColor]} />
       <fog attach="fog" color={bgColor} />
+
       <SpotLight
         showHelper={true}
         theatreKey="spot light 1"
@@ -117,9 +134,9 @@ const Scene = () => {
       <LandingScene />
       <PerspectiveCamera
         theatreKey="Camera"
-        fov={50}
+        fov={100}
         near={0.1}
-        far={10}
+        far={100}
         position={[0, 0, 0]}
         makeDefault
       />
