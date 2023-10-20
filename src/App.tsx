@@ -1,8 +1,10 @@
+import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import Home from "./pages/landing";
 import Detection from "./components/Detection";
 import NotFound from "./pages/404";
+import Home from "./pages/landing";
+import { store } from "./rtk/store";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +19,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  );
 }
 
 export default App;
