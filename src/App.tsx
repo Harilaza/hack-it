@@ -5,6 +5,7 @@ import Detection from "./components/Detection";
 import NotFound from "./pages/404";
 import Home from "./pages/landing";
 import { store } from "./rtk/store";
+import MyCO2 from "./components/MyCO2";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/app",
     element: <Detection />,
+  },
+  {
+    path: "/myco2",
+    element: <MyCO2 />,
   },
 ]);
 
