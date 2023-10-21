@@ -101,7 +101,7 @@ const Header: React.FC<NavBarProps> = () => {
               bgColor="#2BD575"
               variant="solid"
               pointerEvents="all"
-              onClick={() => navigate("/app")}
+              onClick={() => navigate("/co2track/realtime")}
             >
               Commencer
             </Button>
