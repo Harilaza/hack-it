@@ -41,7 +41,7 @@ import Viande2 from "../assets/Group 24.png";
 import Viande3 from "../assets/Group 25.png";
 import Vegetarien from "../assets/Group 26.png";
 import Vegan from "../assets/Group 27.png";
-import Navbar from "./Navbar";
+import Navbar from "./app/navbar";
 import React from "react";
 
 import { Doughnut, Bar } from "react-chartjs-2";
@@ -173,7 +173,8 @@ const MyCO2 = () => {
                       setIsCo(false);
                       setIsTrain(false);
                       setIsBicycle(false);
-                    }}>
+                    }}
+                  >
                     <Image src={Marche} alt="marche" />
                     <Center fontWeight="bold">Marche</Center>
                   </Box>
@@ -191,7 +192,8 @@ const MyCO2 = () => {
                       setIsCo(false);
                       setIsTrain(false);
                       setIsBicycle(false);
-                    }}>
+                    }}
+                  >
                     <Image src={Bus} alt="Bus" />
                     <Center fontWeight="bold">Bus</Center>
                   </Box>
@@ -209,7 +211,8 @@ const MyCO2 = () => {
                       setIsCo(false);
                       setIsTrain(false);
                       setIsBicycle(false);
-                    }}>
+                    }}
+                  >
                     <Image src={Moto} alt="Moto" />
                     <Center fontWeight="bold">Moto</Center>
                   </Box>
@@ -294,7 +297,8 @@ const MyCO2 = () => {
                   fontSize="3xl"
                   fontWeight="extrabold"
                   color="#2BD575"
-                  mt="5">
+                  mt="5"
+                >
                   Distance de parcours (en Km)
                 </Text>
                 <Text>
@@ -306,7 +310,8 @@ const MyCO2 = () => {
                     maxW="100px"
                     mr="2rem"
                     value={value}
-                    onChange={handleChange}>
+                    onChange={handleChange}
+                  >
                     <NumberInputField />
                     <NumberInputStepper>
                       <NumberIncrementStepper />
@@ -317,7 +322,8 @@ const MyCO2 = () => {
                     maxW="45vw"
                     focusThumbOnChange={false}
                     value={value}
-                    onChange={handleChange}>
+                    onChange={handleChange}
+                  >
                     <SliderTrack>
                       <SliderFilledTrack />
                     </SliderTrack>
@@ -332,7 +338,8 @@ const MyCO2 = () => {
                   fontSize="3xl"
                   fontWeight="extrabold"
                   color="#2BD575"
-                  mt="5">
+                  mt="5"
+                >
                   Suivi d'alimentation
                 </Text>
                 <Text>
@@ -441,7 +448,8 @@ const MyCO2 = () => {
             size="lg"
             w="60vw"
             mt="10"
-            onClick={onHandleAnalysis}>
+            onClick={onHandleAnalysis}
+          >
             Analyser
           </Button>
         </Container>

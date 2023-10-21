@@ -1,11 +1,13 @@
 import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import Detection from "./components/Detection";
+import MyCO2 from "./components/MyCO2";
+import Co2ImageTrack from "./components/app/co2imagetrack";
+import Co2RealtimeTrack from "./components/app/co2realtimetrack";
+import Layout from "./components/app/layout";
 import NotFound from "./pages/404";
 import Home from "./pages/landing";
 import { store } from "./rtk/store";
-import MyCO2 from "./components/MyCO2";
 
 const router = createBrowserRouter([
   {
@@ -14,11 +16,21 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
   },
   {
-    path: "/app",
-    element: <Detection />,
+    path: "co2track",
+    element: <Layout />,
+    children: [
+      {
+        path: "realtime",
+        element: <Co2RealtimeTrack />,
+      },
+      {
+        path: "image",
+        element: <Co2ImageTrack />,
+      },
+    ],
   },
   {
-    path: "/myco2",
+    path: "myco2",
     element: <MyCO2 />,
   },
 ]);
