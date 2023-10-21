@@ -48,6 +48,22 @@ import { Doughnut, Bar } from "react-chartjs-2";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 ChartJS.register(ArcElement, Tooltip, Legend);
+
+// données du chart
+const inialData = {
+  labels: ["Quotidien", "Alimentation"],
+  datasets: [
+    {
+      label: "Taux",
+      data: [1, 1],
+      backgroundColor: ["#FF4500", "#FA8072"],
+      borderColor: ["#FF4500", "#FA8072"],
+      circumference: 180,
+      rotation: 270,
+    },
+  ],
+};
+
 const MyCO2 = () => {
   const [value, setValue] = React.useState(0);
   const handleChange = (value: number) => setValue(value);
@@ -58,33 +74,61 @@ const MyCO2 = () => {
   const [isVoiture, setIsVoiture] = React.useState(false);
   const [isBicycle, setIsBicycle] = React.useState(false);
   const [isTrain, setIsTrain] = React.useState(false);
+  const [alimentation, setAlimentation] = React.useState(0);
+  const [isMuch, setIsMuch] = React.useState(false);
+  const [isEnough, setIsEnough] = React.useState(false);
+  const [isNo, setIsNo] = React.useState(false);
+  const [isFich, setIsFish] = React.useState(false);
+  const [isVegetarian, setIsVegetarian] = React.useState(false);
+  const [isVegan, setIsVegan] = React.useState(false);
 
   const [transport, setTransport] = React.useState(0);
-  // const [distance, setDistance] = React.useState(0);
-  // const [alimentation, setAlimentation] = React.useState(0);
 
-  const onHandleTransport = (value: number) => {
-    setTransport(value);
+  const [chartData, setChartData] = React.useState(inialData);
+  const chartRef = React.useRef(null)
+
+  const onHandleTransport = (Type: number) => {
+    setTransport(Type);
   };
 
   const onHandleAnalysis = () => {
-    alert(transport * value);
+    const newData = {
+      labels: ["Quotidien", "Alimentation"],
+      datasets: [
+        {
+          label: "Taux",
+          data: [transport * value, alimentation],
+          backgroundColor: ["#FF4500", "#FA8072"],
+          borderColor: ["#FF4500", "#FA8072"],
+          circumference: 180,
+          rotation: 270,
+        },
+      ],
+    };
+
+    setChartData(newData);
+
+    // Appelez "update" sur le composant de graphique pour refléter les nouvelles données
+    if (chartRef.current) {
+      chartRef.current.chartInstance.update();
+    }
+    console.log(transport * value);
+    console.log(alimentation);
   };
 
-  // données du chart
-  const data = {
-    labels: ["Personne", "Arbre", "Voiture"],
-    datasets: [
-      {
-        label: "Taux",
-        data: [3, 6, 1],
-        backgroundColor: ["#FA8072", "#2BD575", "#FF0000"],
-        borderColor: ["#FA8072", "#2BD575", "#FF0000"],
-        circumference: 180,
-        rotation: 270,
-      },
-    ],
+  const handleChangeCheckbox = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    setState: (newValue: boolean) => void
+  ) => {
+    setState(event.target.checked);
+    console.log("Case à cocher est cochée :", event.target.checked);
+    if (event.target.checked == true) {
+      setAlimentation(alimentation + parseFloat(event.target.value));
+    } else {
+      setAlimentation(alimentation - parseFloat(event.target.value));
+    }
   };
+
   return (
     <>
       <Flex minH="100vh">
@@ -183,7 +227,7 @@ const MyCO2 = () => {
                       setIsCo(true);
                       setIsTrain(false);
                       setIsBicycle(false);
-                      setIsVoiture(false)
+                      setIsVoiture(false);
                     }}>
                     <Image src={Covoiturage} alt="Covoiturage" />
                     <Center fontWeight="bold">Covoiturage</Center>
@@ -202,7 +246,7 @@ const MyCO2 = () => {
                       setIsCo(false);
                       setIsTrain(false);
                       setIsBicycle(false);
-                      setIsVoiture(true)
+                      setIsVoiture(true);
                     }}>
                     <Image src={Voiture} alt="Voiture" />
                     <Center fontWeight="bold">Voiture</Center>
@@ -221,7 +265,7 @@ const MyCO2 = () => {
                       setIsCo(false);
                       setIsTrain(false);
                       setIsBicycle(true);
-                      setIsVoiture(false)
+                      setIsVoiture(false);
                     }}>
                     <Image src={Bicycle} alt="Bicycle" />
                     <Center fontWeight="bold">Bicyclette</Center>
@@ -240,7 +284,7 @@ const MyCO2 = () => {
                       setIsCo(false);
                       setIsTrain(true);
                       setIsBicycle(false);
-                      setIsVoiture(false)
+                      setIsVoiture(false);
                     }}>
                     <Image src={Train} alt="Train" />
                     <Center fontWeight="bold">Train</Center>
@@ -296,19 +340,38 @@ const MyCO2 = () => {
                   alimentaire quotidienne.
                 </Text>
                 <Stack display="flex" flexDirection="row" mt="5" gap="4">
-                  <Checkbox size="lg" colorScheme="red">
+                  <Checkbox
+                    size="lg"
+                    colorScheme="red"
+                    value={27}
+                    isChecked={isMuch}
+                    onChange={(event) =>
+                      handleChangeCheckbox(event, setIsMuch)
+                    }>
                     <Text color="#982E2E" fontWeight="extrabold">
                       Beaucoup de viande (+100g/j)
                     </Text>
                   </Checkbox>
                   <Image src={Viande} alt="viande" maxW="12" />
-                  <Checkbox size="lg" colorScheme="pink">
+                  <Checkbox
+                    size="lg"
+                    colorScheme="pink"
+                    value={13.5}
+                    isChecked={isEnough}
+                    onChange={(event) =>
+                      handleChangeCheckbox(event, setIsEnough)
+                    }>
                     <Text color="#FE585A" fontWeight="extrabold">
                       Viande en moyenne (Tous les 3 j)
                     </Text>
                   </Checkbox>
                   <Image src={Viande2} alt="viande" w="12" />
-                  <Checkbox size="lg" colorScheme="orange">
+                  <Checkbox
+                    size="lg"
+                    colorScheme="orange"
+                    value={7}
+                    isChecked={isNo}
+                    onChange={(event) => handleChangeCheckbox(event, setIsNo)}>
                     <Text color="#74B33D" fontWeight="extrabold">
                       Faible en viande (En semaine)
                     </Text>
@@ -316,19 +379,40 @@ const MyCO2 = () => {
                   <Image src={Viande3} alt="viande" w="12" />
                 </Stack>
                 <Stack display="flex" flexDirection="row" mt="7" gap="6">
-                  <Checkbox size="lg" colorScheme="blue">
+                  <Checkbox
+                    size="lg"
+                    colorScheme="blue"
+                    value={4}
+                    isChecked={isFich}
+                    onChange={(event) =>
+                      handleChangeCheckbox(event, setIsFish)
+                    }>
                     <Text color="#5BC1E7" fontWeight="extrabold">
                       Perscatarien (Poisson)
                     </Text>
                   </Checkbox>
                   <Image src={Poisson} alt="Poisson" w="12" />
-                  <Checkbox size="lg" colorScheme="green">
+                  <Checkbox
+                    size="lg"
+                    colorScheme="green"
+                    value={3}
+                    isChecked={isVegetarian}
+                    onChange={(event) =>
+                      handleChangeCheckbox(event, setIsVegetarian)
+                    }>
                     <Text color="#209C54" fontWeight="extrabold">
                       Végétarien (Du lait et des oeufs)
                     </Text>
                   </Checkbox>
                   <Image src={Vegetarien} alt="Vegetarien" w="12" />
-                  <Checkbox size="lg" colorScheme="green">
+                  <Checkbox
+                    size="lg"
+                    colorScheme="green"
+                    value={1}
+                    isChecked={isVegan}
+                    onChange={(event) =>
+                      handleChangeCheckbox(event, setIsVegan)
+                    }>
                     <Text color="#02612B" fontWeight="extrabold">
                       Végan (Ne mange pas d'animal)
                     </Text>
@@ -342,10 +426,10 @@ const MyCO2 = () => {
                   Resultat myCO2
                 </Center>
                 <Box mt="10">
-                  <Doughnut data={data}></Doughnut>
+                  <Doughnut data={chartData}></Doughnut>
                 </Box>
                 <Box mt="10">
-                  <Bar data={data}></Bar>
+                  <Bar data={chartData}></Bar>
                 </Box>
               </Container>
               {/* Fin du statistique et Resultat */}
