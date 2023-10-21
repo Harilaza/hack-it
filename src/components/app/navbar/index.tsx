@@ -15,6 +15,7 @@ const links = [
   { name: "En temps réel", href: "/co2track/realtime" },
   { name: "Par image", href: "/co2track/image" },
   { name: "MyCO2", href: "/co2track/myco2" },
+  { name: "CO2Talk", href: "/co2track/co2talk" },
 ];
 
 const Navbar = () => {

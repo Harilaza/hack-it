@@ -3,7 +3,6 @@ import {
   Button,
   Center,
   Checkbox,
-  Container,
   Flex,
   Image,
   NumberDecrementStepper,

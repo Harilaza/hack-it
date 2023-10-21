@@ -8,6 +8,7 @@ import NotFound from "./pages/404";
 import Home from "./pages/landing";
 import { store } from "./rtk/store";
 import MyCo2Track from "./components/app/myco2track";
+import Co2Talk from "./components/app/co2talk";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "myco2",
         element: <MyCo2Track />,
+      },
+      {
+        path: "co2talk",
+        element: <Co2Talk />,
       },
     ],
   },
